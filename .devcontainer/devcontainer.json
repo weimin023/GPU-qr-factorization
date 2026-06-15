@@ -1,0 +1,46 @@
+{
+  "name": "autoagent_dev",
+  "image": "autoagent_dev:latest",
+
+  "runArgs": [
+    "--gpus=all",
+    "--ipc=host",
+    "--privileged"
+  ],
+
+  "workspaceFolder": "/workspace",
+
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
+
+  "remoteEnv": {
+    "PATH": "${containerEnv:PATH}:/usr/local/cuda/bin",
+    "LD_LIBRARY_PATH": "${containerEnv:LD_LIBRARY_PATH}:/usr/local/cuda/lib64:/usr/local/cuda/extras/CUPTI/lib64",
+    "XLA_FLAGS": "--xla_gpu_cuda_data_dir=/usr/local/cuda",
+    "CODEX_API_KEY": "${localEnv:CODEX_API_KEY}"
+  },
+
+  "containerEnv": {
+    "CUDA_VISIBLE_DEVICES": "all"
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.cmake-tools",
+        "mhutchie.git-graph",
+        "ms-vscode.cpptools",
+        "ms-vscode.cpptools-extension-pack",
+        "nvidia.nsight-vscode-edition",
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.debugpy",
+        "eamodio.gitlens",
+        "ms-azuretools.vscode-docker"
+      ]
+    }
+  },
+
+  "postCreateCommand": "mkdir -p /root/.ssh",
+
+  "postStartCommand": "echo 'container started'"
+}
