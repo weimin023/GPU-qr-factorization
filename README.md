@@ -7,8 +7,7 @@ This repository contains a single-file QR factorization submission:
 - `submission.py`: final file to submit. The current checked-in version is the verified `qr_v2`/B200 baseline.
 - `qr_official.py`: official local reference/checker.
 - `verify_submission.py`: local wrapper for running the official test cases.
-- `cutedsl_env.sh`: local environment setup for CUDA visibility and the archived CuTe DSL notes.
-- `submission_stream_unsafe.py`: archived experimental CuTe/raw CUDA version. Do not submit this file to the leaderboard because it can launch work on disallowed streams.
+- `cutedsl_env.sh`: local environment setup for CUDA visibility.
 - `docs/`: notes, announcement summary, implementation plan, profiling notes.
 
 ## Problem Summary
@@ -33,7 +32,7 @@ source ./cutedsl_env.sh
 
 The environment script sets `PYTHONPATH` for the workspace-local CuTe DSL install and fixes CUDA visibility when `CUDA_VISIBLE_DEVICES=all`.
 
-The current leaderboard file, `submission.py`, uses the official `torch.geqrf` baseline and includes Popcorn directives for `qr_v2` on B200. The archived custom CUDA/CuTe versions are kept for follow-up optimization work.
+The current leaderboard file, `submission.py`, uses the official `torch.geqrf` baseline and includes Popcorn directives for `qr_v2` on B200.
 
 Quick CUDA/CuTe check:
 
@@ -154,4 +153,3 @@ popcorn-cli submit --gpu B200 --leaderboard qr_v2 --mode profile --no-tui submis
 - `submission.py` is self-contained and does not import local helper files.
 - The active submission path is the official `torch.geqrf` baseline. It passed the remote `qr_v2` leaderboard run on B200.
 - A hand-written PyTorch Householder version passed local verification but timed out remotely at 300 seconds on `qr_v2`.
-- `submission_stream_unsafe.py` preserves the experimental CuTe DSL plus raw CUDA tiled WY implementation for local study/profiling. The CuTe panel launch path triggered the server stream-policy error; the raw CUDA trailing update already uses `at::cuda::getCurrentCUDAStream()`.
