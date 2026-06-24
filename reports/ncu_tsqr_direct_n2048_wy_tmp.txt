@@ -1,0 +1,5 @@
+==PROF== Connected to process 1050843 (/usr/bin/python3.12)
+==PROF== Profiling "_wy_tmp_triton_kernel": 0%....50%....100% - 16 passes
+n=2048 elapsed_ms=278.474 ok=True; factor_rtol=0.00488; orth_rtol=0.0244; scaled_factor_residual=0.0027; scaled_reconstruction_residual=0.00195; scaled_triangular_residual=0.00268; scaled_orthogonality_residual=0.202; batch=1; n=2048
+==PROF== Disconnected from process 1050843
+==PROF== Report: /modelz/workspace/weiminc/qr/GPU-qr-factorization/reports/ncu_tsqr_direct_n2048_wy_tmp.ncu-rep
